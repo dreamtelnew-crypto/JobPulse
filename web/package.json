@@ -1,0 +1,9 @@
+{
+  "name": "jobpulse-studio",
+  "version": "2.0.0",
+  "type": "module",
+  "description": "JobPulse AI - Unified Web Studio Dashboard",
+  "scripts": {
+    "start": "node server.js"
+  }
+}

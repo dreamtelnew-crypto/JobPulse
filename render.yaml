@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: jobpulse-ai
+    runtime: node
+    plan: free
+    region: oregon
+    buildCommand: "npm start --dry-run || echo 'Zero dependencies ready'"
+    startCommand: "node web/server.js"
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: ADMIN_SECRET
+        generateValue: true
+      - key: VAULT_SECRET_SALT
+        generateValue: true
+      - key: GEMINI_API_KEYS
+        sync: false
+      - key: FOUNDER_WHATSAPP
+        sync: false
+      - key: MERCHANT_NAME
+        value: "JobPulse Studio"

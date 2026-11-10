@@ -1,0 +1,25 @@
+{
+  "name": "jobpulse-ai",
+  "version": "2.0.0",
+  "type": "module",
+  "description": "JobPulse AI — Autonomous AI Career Engine, Real-time Job Radar, ATS Resume Studio, Interview AI & Chrome Extension",
+  "main": "web/server.js",
+  "scripts": {
+    "start": "node web/server.js",
+    "dev": "node web/server.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "jobpulse-ai",
+    "ai-job-radar",
+    "career-studio",
+    "ats-resume",
+    "interview-coach",
+    "chrome-extension",
+    "gemini-ai"
+  ],
+  "author": "",
+  "license": "MIT"
+}

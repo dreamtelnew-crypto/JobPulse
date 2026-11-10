@@ -1,0 +1,9 @@
+{
+  "fullName": "Alex Rivera",
+  "email": "alex.rivera.dev@gmail.com",
+  "phone": "+91 98765 43210",
+  "location": "Bengaluru, India (Remote or Hybrid)",
+  "headline": "Senior Full-Stack & AI Engineer | Python, React, PyTorch, RAG Pipelines",
+  "skills": "Python, PyTorch, FastAPI, React, TypeScript, Docker, Kubernetes, PostgreSQL, LangChain, RAG Systems, Git, CI/CD, AWS",
+  "achievements": "• Architected distributed RAG semantic search microservices handling 2.5M queries daily with 99.98% pipeline uptime.\n• Optimized LLM inference latency by 42% utilizing quantized model caching and GPU batching pipelines.\n• Led engineering of end-to-end full-stack web applications serving 120k active monthly developers."
+}

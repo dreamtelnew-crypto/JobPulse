@@ -1,0 +1,113 @@
+<svg width="1200" height="420" viewBox="0 0 1200 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#07080c"/>
+      <stop offset="50%" stop-color="#0b0f1d"/>
+      <stop offset="100%" stop-color="#05060a"/>
+    </linearGradient>
+
+    <linearGradient id="jpTextGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="45%" stop-color="#818cf8"/>
+      <stop offset="100%" stop-color="#c084fc"/>
+    </linearGradient>
+
+    <linearGradient id="badgeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6366f1" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#a855f7" stop-opacity="0.15"/>
+    </linearGradient>
+
+    <filter id="heroGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="25" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Deep Obsidian Background Canvas -->
+  <rect width="1200" height="420" rx="16" fill="url(#bgGrad)"/>
+
+  <!-- High-Tech Ambient Glow Orbs -->
+  <circle cx="240" cy="210" r="180" fill="#38bdf8" opacity="0.12" filter="url(#heroGlow)"/>
+  <circle cx="950" cy="120" r="160" fill="#818cf8" opacity="0.10" filter="url(#heroGlow)"/>
+  <circle cx="1100" cy="340" r="140" fill="#c084fc" opacity="0.08" filter="url(#heroGlow)"/>
+
+  <!-- Background Grid -->
+  <g stroke="rgba(255, 255, 255, 0.04)" stroke-width="1">
+    <line x1="0" y1="70" x2="1200" y2="70"/>
+    <line x1="0" y1="140" x2="1200" y2="140"/>
+    <line x1="0" y1="210" x2="1200" y2="210"/>
+    <line x1="0" y1="280" x2="1200" y2="280"/>
+    <line x1="0" y1="350" x2="1200" y2="350"/>
+    <line x1="200" y1="0" x2="200" y2="420"/>
+    <line x1="400" y1="0" x2="400" y2="420"/>
+    <line x1="600" y1="0" x2="600" y2="420"/>
+    <line x1="800" y1="0" x2="800" y2="420"/>
+    <line x1="1000" y1="0" x2="1000" y2="420"/>
+  </g>
+
+  <!-- Left Hero Icon Group -->
+  <g transform="translate(130, 95) scale(0.9)">
+    <!-- Shield Base -->
+    <polygon points="128,18 206,50 238,128 206,206 128,238 50,206 18,128 50,50" 
+             fill="#0f172a" stroke="url(#jpTextGrad)" stroke-width="4" stroke-linejoin="round"/>
+    
+    <!-- Radar rings -->
+    <circle cx="128" cy="128" r="82" stroke="#38bdf8" stroke-width="1.5" stroke-opacity="0.3" stroke-dasharray="4 6"/>
+    <circle cx="128" cy="128" r="54" stroke="#818cf8" stroke-width="1.5" stroke-opacity="0.35" stroke-dasharray="2 4"/>
+
+    <!-- Pulse waveform -->
+    <path d="M42 136 L72 136 L86 154 L102 96 L118 168 L138 106 L154 148 L170 126 L184 136 L214 136" 
+          stroke="url(#jpTextGrad)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity="0.8"/>
+
+    <!-- Supersonic Apex Chevron -->
+    <path d="M128 46 L128 108 L90 126 Z" fill="url(#jpTextGrad)"/>
+    <path d="M128 46 L166 126 L128 108 Z" fill="#f43f5e"/>
+    <path d="M128 108 L86 128 L64 162 L116 142 Z" fill="url(#jpTextGrad)" opacity="0.85"/>
+    <path d="M128 108 L140 142 L192 162 L170 128 Z" fill="#818cf8" opacity="0.85"/>
+    <path d="M128 152 L96 178 L128 212 L160 178 Z" fill="url(#jpTextGrad)"/>
+    <polygon points="128,118 136,132 128,146 120,132" fill="#ffffff"/>
+  </g>
+
+  <!-- Right Typography & Meta -->
+  <g transform="translate(420, 110)">
+    <!-- Pro Category Pill -->
+    <rect x="0" y="0" width="220" height="28" rx="14" fill="url(#badgeGrad)" stroke="rgba(99, 102, 241, 0.4)" stroke-width="1"/>
+    <text x="14" y="18" fill="#38bdf8" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="700" letter-spacing="1">⚡ AUTONOMOUS CAREER SUITE</text>
+
+    <!-- Main Title -->
+    <text x="0" y="75" fill="#f8fafc" font-family="'Plus Jakarta Sans', sans-serif" font-size="46" font-weight="800" letter-spacing="-1">
+      JobPulse <tspan fill="url(#jpTextGrad)">AI</tspan>
+    </text>
+
+    <!-- Tagline -->
+    <text x="0" y="112" fill="#94a3b8" font-family="'Inter', sans-serif" font-size="16" font-weight="500">
+      The Autonomous AI Career Engine, Real-time Job Radar &amp; Application Studio
+    </text>
+
+    <!-- Highlights Badges -->
+    <g transform="translate(0, 145)">
+      <!-- Badge 1 -->
+      <rect x="0" y="0" width="145" height="30" rx="8" fill="rgba(255, 255, 255, 0.04)" stroke="rgba(255, 255, 255, 0.08)"/>
+      <text x="12" y="19" fill="#f8fafc" font-family="'Inter', sans-serif" font-size="11.5" font-weight="600">🎯 Live Multi-Radar</text>
+
+      <!-- Badge 2 -->
+      <rect x="155" y="0" width="150" height="30" rx="8" fill="rgba(255, 255, 255, 0.04)" stroke="rgba(255, 255, 255, 0.08)"/>
+      <text x="167" y="19" fill="#f8fafc" font-family="'Inter', sans-serif" font-size="11.5" font-weight="600">✍️ 1-Page ATS Tailor</text>
+
+      <!-- Badge 3 -->
+      <rect x="315" y="0" width="145" height="30" rx="8" fill="rgba(255, 255, 255, 0.04)" stroke="rgba(255, 255, 255, 0.08)"/>
+      <text x="327" y="19" fill="#f8fafc" font-family="'Inter', sans-serif" font-size="11.5" font-weight="600">🎙️ Interview AI Coach</text>
+
+      <!-- Badge 4 -->
+      <rect x="470" y="0" width="140" height="30" rx="8" fill="rgba(255, 255, 255, 0.04)" stroke="rgba(255, 255, 255, 0.08)"/>
+      <text x="482" y="19" fill="#f8fafc" font-family="'Inter', sans-serif" font-size="11.5" font-weight="600">🎨 Multi-Theme UI</text>
+
+      <!-- Badge 5 -->
+      <rect x="620" y="0" width="125" height="30" rx="8" fill="rgba(255, 255, 255, 0.04)" stroke="rgba(255, 255, 255, 0.08)"/>
+      <text x="632" y="19" fill="#38bdf8" font-family="'Inter', sans-serif" font-size="11.5" font-weight="600">☁️ Render Live</text>
+    </g>
+  </g>
+</svg>

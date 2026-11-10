@@ -1,0 +1,84 @@
+<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Vibrant Pulse Linear Gradient -->
+    <linearGradient id="jpGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00f2fe"/>
+      <stop offset="35%" stop-color="#38bdf8"/>
+      <stop offset="70%" stop-color="#6366f1"/>
+      <stop offset="100%" stop-color="#c084fc"/>
+    </linearGradient>
+
+    <!-- Warm Accent Gradient -->
+    <linearGradient id="jpAccent" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="50%" stop-color="#818cf8"/>
+      <stop offset="100%" stop-color="#f43f5e"/>
+    </linearGradient>
+
+    <!-- Deep Shield Background Gradient -->
+    <linearGradient id="jpShield" x1="20%" y1="0%" x2="80%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" stop-opacity="0.95"/>
+      <stop offset="50%" stop-color="#0b0f1d" stop-opacity="0.98"/>
+      <stop offset="100%" stop-color="#030712" stop-opacity="1"/>
+    </linearGradient>
+
+    <!-- Glow Filter -->
+    <filter id="jpGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="7" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <filter id="jpIntenseGlow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="12" result="blur1"/>
+      <feGaussianBlur stdDeviation="4" result="blur2"/>
+      <feMerge>
+        <feMergeNode in="blur1"/>
+        <feMergeNode in="blur2"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Ambient Outer Glow Aura -->
+  <circle cx="128" cy="128" r="105" fill="url(#jpGrad)" opacity="0.16" filter="url(#jpIntenseGlow)"/>
+
+  <!-- Futuristic Rounded Octagonal Shield Base -->
+  <polygon points="128,18 206,50 238,128 206,206 128,238 50,206 18,128 50,50" 
+           fill="url(#jpShield)" stroke="url(#jpGrad)" stroke-width="3" stroke-linejoin="round"/>
+
+  <!-- Inner Concentric Radar Telemetry Circles -->
+  <circle cx="128" cy="128" r="82" stroke="#38bdf8" stroke-width="1" stroke-opacity="0.18" stroke-dasharray="4 6"/>
+  <circle cx="128" cy="128" r="54" stroke="#818cf8" stroke-width="1" stroke-opacity="0.22" stroke-dasharray="2 4"/>
+
+  <!-- Radar Coordinates Crosshairs -->
+  <line x1="128" y1="36" x2="128" y2="70" stroke="#38bdf8" stroke-width="1.2" stroke-opacity="0.35"/>
+  <line x1="128" y1="186" x2="128" y2="220" stroke="#38bdf8" stroke-width="1.2" stroke-opacity="0.35"/>
+  <line x1="36" y1="128" x2="70" y2="128" stroke="#38bdf8" stroke-width="1.2" stroke-opacity="0.35"/>
+  <line x1="186" y1="128" x2="220" y2="128" stroke="#38bdf8" stroke-width="1.2" stroke-opacity="0.35"/>
+
+  <!-- Dynamic Career Pulse Waveform Line behind glyph -->
+  <path d="M42 136 L72 136 L86 154 L102 96 L118 168 L138 106 L154 148 L170 126 L184 136 L214 136" 
+        stroke="url(#jpGrad)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.55" filter="url(#jpGlow)"/>
+
+  <!-- Ascending Supersonic Apex Career Chevron (Main Glyph) -->
+  <!-- Top Spear / Arrowhead Facet Left -->
+  <path d="M128 46 L128 108 L90 126 L128 46 Z" fill="url(#jpGrad)" opacity="0.95"/>
+  
+  <!-- Top Spear / Arrowhead Facet Right -->
+  <path d="M128 46 L166 126 L128 108 L128 46 Z" fill="url(#jpAccent)" opacity="0.9"/>
+
+  <!-- Outer Swept Wings (Left & Right) -->
+  <path d="M128 108 L86 128 L64 162 L116 142 L128 108 Z" fill="url(#jpGrad)" opacity="0.85"/>
+  <path d="M128 108 L140 142 L192 162 L170 128 L128 108 Z" fill="url(#jpAccent)" opacity="0.85"/>
+
+  <!-- Lower Energy Thruster / Foundation Chevron -->
+  <path d="M128 152 L96 178 L128 212 L160 178 Z" fill="url(#jpGrad)" opacity="0.9"/>
+  <path d="M128 168 L110 184 L128 202 L146 184 Z" fill="#0f172a"/>
+
+  <!-- Central AI Spark Diamond Core -->
+  <polygon points="128,118 136,132 128,146 120,132" fill="#ffffff" filter="url(#jpGlow)"/>
+  <circle cx="128" cy="132" r="2.5" fill="#00f2fe"/>
+</svg>

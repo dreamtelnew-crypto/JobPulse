@@ -1,0 +1,18 @@
+# =====================================================================
+# JobCraft — Caddy Reverse Proxy Template
+# Automatic HTTPS via Let's Encrypt with Zero-Configuration
+# Replace yourdomain.com with your custom domain
+# =====================================================================
+
+yourdomain.com, www.yourdomain.com {
+    # Automatic TLS certificate provisioned by Caddy
+    encode gzip zstd
+
+    # Proxy all traffic to JobCraft running on port 3000
+    reverse_proxy 127.0.0.1:3000 {
+        header_up Host {host}
+        header_up X-Real-IP {remote_host}
+        header_up X-Forwarded-For {remote_host}
+        header_up X-Forwarded-Proto {scheme}
+    }
+}
