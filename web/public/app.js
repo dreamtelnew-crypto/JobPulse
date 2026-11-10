@@ -659,17 +659,14 @@
   }
 
   function getWebFreemium() {
-    try {
-      const saved = localStorage.getItem('ai_copilot_freemium_state');
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        if (parsed.aiActions === undefined) {
-          parsed.aiActions = parsed.cv !== undefined ? parsed.cv : 1;
-        }
-        return parsed;
-      }
-    } catch {}
-    return { scans: 3, aiActions: 1, cv: 1, isPro: false, proKey: null };
+    return {
+      isPro: true,
+      scansRemaining: 999999,
+      cvRemaining: 999999,
+      proKey: 'COMMUNITY_FREE_EDITION',
+      proTier: 'lifetime',
+      token: 'FREE_COMMUNITY_TOKEN'
+    };
   }
 
   function saveWebFreemium(state) {

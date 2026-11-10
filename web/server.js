@@ -1913,13 +1913,7 @@ const server = http.createServer(async (req, res) => {
 
     if (!auth.isPro) {
       const usage = getDeviceTrial(deviceId);
-      if (usage.aiActions <= 0) {
-        res.writeHead(402, { 'Content-Type': 'application/json' });
-        return res.end(JSON.stringify({
-          error: 'Free AI quota exhausted (1/1 used). To preserve Gemini compute quota and prepare unlimited role-specific interview Q&As, upgrade to Pro.',
-          requiresUpgrade: true
-        }));
-      }
+// Free unlimited interview prep
       usage.aiActions -= 1;
       deviceTrialStore.set(deviceId, usage);
     }
@@ -2014,13 +2008,7 @@ Format cleanly with clear headings and bullet points. Never truncate or leave se
 
     if (!auth.isPro) {
       const usage = getDeviceTrial(deviceId);
-      if (usage.aiActions <= 0) {
-        res.writeHead(402, { 'Content-Type': 'application/json' });
-        return res.end(JSON.stringify({
-          error: 'Free AI quota exhausted (1/1 used). To preserve Gemini compute quota and generate unlimited tailored ATS resumes & cover letters, upgrade to Pro.',
-          requiresUpgrade: true
-        }));
-      }
+// Free unlimited tailoring
       usage.aiActions -= 1;
       deviceTrialStore.set(deviceId, usage);
     }

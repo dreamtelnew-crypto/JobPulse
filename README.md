@@ -8,6 +8,7 @@
 > *Craft your career advancement with precision automation. 100% local, private, and zero database leaks.*
 
 [![Status](https://img.shields.io/badge/Status-Production%20Ready-success.svg)](#-highlights--feature-matrix)
+[![Access: 100% Free](https://img.shields.io/badge/Access-100%25_Free_%26_Open_Source-success.svg)](#-highlights--feature-matrix)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Node.js](https://img.shields.io/badge/Node.js-18%2B-green.svg)](https://nodejs.org/)
 [![Themes](https://img.shields.io/badge/Themes-Dark%20%7C%20Light%20%7C%20Cyber%20%7C%20Amethyst-8b5cf6.svg)](#-multi-theme-design-system)
@@ -29,7 +30,7 @@ With **zero external database dependencies**, JobPulse AI combines an ultra-fast
 - **Zero-Dependency Engine**: Built with native Node.js APIs (`node:http`, `node:fs`, `node:crypto`). Runs with zero external `npm install` bloat!
 - **Multi-Theme System**: Switch instantly between **Obsidian Dark**, **Aurora Light**, **Cyber Emerald**, and **Royal Amethyst**.
 - **Dual Deployment Ready**: Run the complete full-stack engine 24/7 on **Render** (with keep-alive heartbeat) AND host the static client showcase on **GitHub Pages**!
-- **100% Local & Private**: All profile data, candidate resumes, and license hashes persist locally in atomic JSON/CSV ledgers without cloud leaks.
+- **100% Free & Open Access**: Zero paywalls, no trial credit limits, and zero payment gateways. Complete public access.\n- **100% Local & Private**: All profile data, candidate resumes, and license hashes persist locally in atomic JSON/CSV ledgers without cloud leaks.
 
 ---
 

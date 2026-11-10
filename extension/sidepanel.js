@@ -279,7 +279,7 @@
       const saved = localStorage.getItem('ai_copilot_freemium_state');
       if (saved) return JSON.parse(saved);
     } catch {}
-    return { scans: 3, cv: 1, isPro: false, proKey: null };
+    return { scans: 999999, cv: 999999, isPro: true, proKey: 'COMMUNITY_FREE' };
   }
 
   function saveFreemiumState(state) {
@@ -973,11 +973,7 @@
   // Scan Active Tab Button
   btnScanTab.addEventListener('click', () => {
     const freeState = getFreemiumState();
-    if (!freeState.isPro && freeState.scans <= 0) {
-      openUpgradeModal("You have used all 3 free job scans! Upgrade to Pro to continue scanning jobs on LinkedIn, Naukri, and Indeed.");
-      resetScanButton();
-      return;
-    }
+    
 
     btnScanTab.textContent = 'Scanning...';
     btnScanTab.disabled = true;
@@ -1326,10 +1322,7 @@
     }
 
     const freeState = getFreemiumState();
-    if (!freeState.isPro && freeState.cv <= 0) {
-      openUpgradeModal("You have used your 1 free tailored ATS CV! Upgrade to Pro for unlimited AI resume and cover letter tailoring.");
-      return;
-    }
+    
 
     document.querySelector('[data-tab="cvTab"]').click();
 
