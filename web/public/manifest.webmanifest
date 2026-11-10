@@ -1,0 +1,23 @@
+{
+  "name": "JobPulse AI — Autonomous Career Studio",
+  "short_name": "JobPulse AI",
+  "description": "Autonomous AI Career Engine, Real-time Job Radar & Application Studio",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#07080c",
+  "theme_color": "#6366f1",
+  "icons": [
+    {
+      "src": "favicon.png",
+      "sizes": "64x64",
+      "type": "image/png"
+    },
+    {
+      "src": "logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

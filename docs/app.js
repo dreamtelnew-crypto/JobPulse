@@ -260,8 +260,27 @@
       missingSkills: ["Terraform CDKTF", "eBPF Tracing"],
       verdictSummary: "Solid infrastructure match with robust containerization and CI/CD competencies. Minor technical gaps in kernel-level observability easily bridged via Upskill Hub.",
       description: "Lead enterprise container orchestration, automated zero-downtime canary rollouts, and multi-region Kubernetes clusters handling 500k RPS."
-    }
-  ];
+    },
+    {
+      id: "demo-05",
+      title: "Founding AI Systems Engineer (YC W26)",
+      company: "CognitiveFlow (YC W26)",
+      location: "San Francisco, CA (Remote Worldwide)",
+      salary: "$195,000 - $260,000 / yr • 1.5% - 2.5% Equity",
+      seniority: "Founding Engineer",
+      employmentType: "Full-Time",
+      industries: "Hacker News Who is Hiring, Foundation AI",
+      postedAgo: "3 hours ago",
+      source: "Hacker News (YC)",
+      score: 97,
+      fitVerdict: "Strong Match",
+      domainFit: 96,
+      skillsFit: 98,
+      matchedSkills: ["Python", "PyTorch", "FastAPI", "RAG Systems", "PostgreSQL", "Docker", "Git"],
+      missingSkills: ["vLLM Kernels", "Ray Clusters"],
+      verdictSummary: "Near-perfect 97% synergy with founding AI engineering requirements. High equity upside and rapid leadership growth.",
+      description: "Direct founder post from Hacker News 'Who is Hiring?'. Backed by top YC partners. Building autonomic reasoning models for enterprise workflows. Seeking our founding AI systems engineer to own inference throughput and model pipelines."
+    }];
 
   function getDemoFallbackResponse(url, init) {
     const parsed = new URL(url, 'http://localhost');
@@ -729,6 +748,13 @@
     const reasonEl = document.getElementById('webUpgradeReason');
     if (reasonEl && reason) reasonEl.textContent = reason;
     initSmartGeoPricing();
+    initAtsTemplates();
+    initOutreachModal();
+    initVoiceMockInterviewer();
+    initKeywordAutoInject();
+    initOfferMatrix();
+    initPwa();
+    renderKeywordHeatmap(activeJobDetail, candidateProfile);
     if (modal) modal.style.display = 'flex';
   }
 
@@ -2445,6 +2471,398 @@ ${candidateProfile?.achievements || ''}
     });
   }
 
+  
+  // =========================================================================
+  // MEGA UPGRADE 1: ATS TEMPLATES & 1-CLICK PDF EXPORT
+  // =========================================================================
+  function initAtsTemplates() {
+    const templateBtns = document.querySelectorAll('.btn-template-choice');
+    const resumePaper = document.getElementById('resumePaper');
+    const btnDownloadPdfDirect = document.getElementById('btnDownloadPdfDirect');
+
+    templateBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        templateBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const tmpl = btn.getAttribute('data-template');
+        if (resumePaper) {
+          resumePaper.className = 'resume-paper template-' + tmpl;
+        }
+        showToast(`✓ Switched to ${btn.textContent} Layout`);
+      });
+    });
+
+    if (btnDownloadPdfDirect) {
+      btnDownloadPdfDirect.addEventListener('click', () => {
+        window.print();
+      });
+    }
+  }
+
+  // =========================================================================
+  // MEGA UPGRADE 2: RECRUITER OUTREACH & LINKEDIN DM GENERATOR
+  // =========================================================================
+  function generateOutreachCopy(job, profile) {
+    const company = job ? job.company : "Target Company";
+    const title = job ? job.title : "Software Engineer";
+    const candidate = profile ? profile.fullName : "Candidate";
+
+    // 1. LinkedIn Note (<300 Chars)
+    const note = `Hi team! Noticed the ${title} opening at ${company}. Having architected distributed pipelines (99.98% uptime, 42% latency cut) with Python & cloud systems, I would love to connect and share how my technical background aligns with your engineering deliverables. Best, ${candidate}`;
+
+    // 2. InMail / Pitch Email
+    const subject = `Experienced ${title} — ${candidate} • Background & Technical Alignment`;
+    const inmail = `Hi ${company} Hiring Team,\n\nI came across the ${title} position at ${company} and was immediately impressed by your technical vision. Given my background designing high-throughput distributed microservices, low-latency AI architectures, and scalable full-stack applications, I wanted to reach out directly.\n\nIn my recent deliverables:\n• Engineered distributed semantic search microservices handling 2.5M daily queries with 99.98% uptime.\n• Optimized inference pipelines by 42% utilizing quantized model caching and batched GPU execution.\n• Built customer-facing production platforms serving 120k active developers.\n\nI would welcome a brief conversation to explore how my hands-on background can help accelerate your engineering roadmap. My resume is attached for review.\n\nBest regards,\n${candidate}\n${profile ? profile.email : 'candidate@email.com'} • ${profile ? profile.phone : '+1 234 567 8900'}`;
+
+    // 3. Follow-Ups
+    const f1 = `Hi again, following up on my note regarding the ${title} role at ${company}. Would love to connect briefly if your schedule allows!`;
+    const f2 = `Hi team, sharing a quick technical insight: we recently cut pipeline latency by 42% using batched GPU inference, which directly maps to the scale targets in your job requirements. Eager to discuss!`;
+    const f3 = `Hi team, I know you are in active recruitment sprints, so I will pause follow-ups here. I remain very enthusiastic about ${company} and hope to stay connected for future opportunities.`;
+
+    return { note, subject, inmail, f1, f2, f3 };
+  }
+
+  function initOutreachModal() {
+    const modal = document.getElementById('outreachModal');
+    const btnOpenDetail = document.getElementById('btnOutreachFromDetail');
+    const btnOpenCv = document.getElementById('btnOpenOutreachFromCv');
+    const btnClose = document.getElementById('btnCloseOutreachModal');
+    const tabBtns = document.querySelectorAll('.outreach-tab-btn');
+    const noteText = document.getElementById('outreachNoteText');
+    const inmailText = document.getElementById('outreachInmailText');
+    const subjectText = document.getElementById('outreachSubjectText');
+    const charCount = document.getElementById('charCountNote');
+    const searchLink = document.getElementById('btnSearchLinkedInRecruiters');
+    const btnCopyNote = document.getElementById('btnCopyOutreachNote');
+    const btnCopyInmail = document.getElementById('btnCopyOutreachInmail');
+
+    function populate() {
+      const copy = generateOutreachCopy(activeJobDetail, candidateProfile);
+      if (noteText) {
+        noteText.value = copy.note;
+        if (charCount) charCount.textContent = `${copy.note.length} / 300 Chars`;
+      }
+      if (subjectText) subjectText.value = copy.subject;
+      if (inmailText) inmailText.value = copy.inmail;
+      if (searchLink && activeJobDetail) {
+        searchLink.href = `https://www.linkedin.com/search/results/people/?keywords=Recruiter%20${encodeURIComponent(activeJobDetail.company)}`;
+      }
+    }
+
+    if (btnOpenDetail) {
+      btnOpenDetail.addEventListener('click', () => {
+        populate();
+        if (modal) modal.style.display = 'flex';
+      });
+    }
+
+    if (btnOpenCv) {
+      btnOpenCv.addEventListener('click', () => {
+        populate();
+        if (modal) modal.style.display = 'flex';
+      });
+    }
+
+    if (btnClose && modal) {
+      btnClose.addEventListener('click', () => {
+        modal.style.display = 'none';
+      });
+    }
+
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        tabBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const tab = btn.getAttribute('data-tab');
+        document.querySelectorAll('.outreach-pane').forEach(p => p.style.display = 'none');
+        if (tab === 'note') document.getElementById('outreachTabNote').style.display = 'block';
+        if (tab === 'inmail') document.getElementById('outreachTabInmail').style.display = 'block';
+        if (tab === 'followup') document.getElementById('outreachTabFollowup').style.display = 'block';
+      });
+    });
+
+    if (noteText && charCount) {
+      noteText.addEventListener('input', () => {
+        charCount.textContent = `${noteText.value.length} / 300 Chars`;
+        charCount.style.color = noteText.value.length > 300 ? '#f43f5e' : '#10b981';
+      });
+    }
+
+    if (btnCopyNote && noteText) {
+      btnCopyNote.addEventListener('click', () => {
+        navigator.clipboard.writeText(noteText.value);
+        showToast('✓ Copied LinkedIn Connection Note!');
+      });
+    }
+
+    if (btnCopyInmail && inmailText) {
+      btnCopyInmail.addEventListener('click', () => {
+        const full = `${subjectText.value}\n\n${inmailText.value}`;
+        navigator.clipboard.writeText(full);
+        showToast('✓ Copied Subject & InMail Pitch!');
+      });
+    }
+  }
+
+  // =========================================================================
+  // MEGA UPGRADE 3: INTERACTIVE VOICE AI MOCK INTERVIEWER
+  // =========================================================================
+  function initVoiceMockInterviewer() {
+    const btnSpeak = document.getElementById('btnVoiceSpeakQuestion');
+    const btnMic = document.getElementById('btnVoiceToggleMic');
+    const transcript = document.getElementById('voiceTranscriptArea');
+    const waveform = document.getElementById('voiceWaveformContainer');
+    const evalPanel = document.getElementById('voiceEvaluationPanel');
+    const wordCountEl = document.getElementById('voiceWordCount');
+    const fillerEl = document.getElementById('voiceFillerCount');
+    const starEl = document.getElementById('voiceStarStatus');
+    const scoreBadge = document.getElementById('voiceScoreBadge');
+    const feedbackText = document.getElementById('voiceFeedbackText');
+
+    let isRecording = false;
+    let recognition = null;
+    let startTime = null;
+
+    if (btnSpeak) {
+      btnSpeak.addEventListener('click', () => {
+        const activeQ = document.querySelector('.prep-card-q') || { textContent: "How do you optimize distributed inference pipelines and mitigate hallucinations in high-throughput RAG systems?" };
+        const textToSpeak = activeQ.textContent || "Tell me about a challenging technical bottleneck you resolved.";
+        if ('speechSynthesis' in window) {
+          window.speechSynthesis.cancel();
+          const utter = new SpeechSynthesisUtterance(textToSpeak);
+          utter.rate = 1.0;
+          utter.pitch = 1.0;
+          window.speechSynthesis.speak(utter);
+          showToast('🔊 AI Interviewer is asking the question...');
+        } else {
+          showToast('Speech synthesis is not supported on this browser', true);
+        }
+      });
+    }
+
+    // Speech-to-Text Setup
+    const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (SpeechRec) {
+      recognition = new SpeechRec();
+      recognition.continuous = true;
+      recognition.interimResults = true;
+      recognition.lang = 'en-US';
+
+      recognition.onstart = () => {
+        isRecording = true;
+        startTime = Date.now();
+        if (waveform) waveform.style.display = 'flex';
+        btnMic.textContent = '⏹ Stop Speaking & Grade';
+        btnMic.style.background = '#e11d48';
+      };
+
+      recognition.onresult = (e) => {
+        let finalStr = '';
+        for (let i = 0; i < e.results.length; i++) {
+          finalStr += e.results[i][0].transcript + ' ';
+        }
+        if (transcript) {
+          transcript.value = finalStr;
+          updateVoiceStats(finalStr);
+        }
+      };
+
+      recognition.onerror = () => {
+        stopRecording();
+      };
+
+      recognition.onend = () => {
+        stopRecording();
+        gradeAnswer(transcript.value);
+      };
+    }
+
+    function updateVoiceStats(text) {
+      const words = text.trim().split(/\s+/).filter(Boolean);
+      const elapsedMin = Math.max(0.05, (Date.now() - startTime) / 60000);
+      const wpm = Math.round(words.length / elapsedMin);
+      if (wordCountEl) {
+        wordCountEl.textContent = `${words.length} words • ${wpm} WPM`;
+      }
+    }
+
+    function gradeAnswer(text) {
+      if (!text || text.trim().length < 10) return;
+      const lower = text.toLowerCase();
+
+      // Detect Fillers
+      const fillers = ['um', 'uh', 'like', 'you know', 'actually', 'basically', 'sort of', 'kind of'];
+      let fillerHits = 0;
+      fillers.forEach(f => {
+        const matches = lower.match(new RegExp('\\b' + f + '\\b', 'g'));
+        if (matches) fillerHits += matches.length;
+      });
+
+      // Detect STAR keywords
+      const hasSit = /challenge|problem|project|context|company|team|situation/.test(lower);
+      const hasAct = /architected|built|designed|implemented|optimized|led|developed|refactored/.test(lower);
+      const hasRes = /reduced|increased|boosted|uptime|latency|percent|%|saved|scale/.test(lower);
+
+      let starScore = 75;
+      if (hasSit && hasAct && hasRes) starScore = 94;
+      else if (hasAct && hasRes) starScore = 88;
+
+      if (fillerHits > 4) starScore -= 8;
+
+      if (evalPanel) evalPanel.style.display = 'block';
+      if (fillerEl) fillerEl.textContent = `${fillerHits} detected`;
+      if (starEl) starEl.textContent = (hasSit && hasAct && hasRes) ? 'Complete (S+T+A+R)' : 'Partial STAR';
+      if (scoreBadge) scoreBadge.textContent = `${starScore} / 100`;
+      if (feedbackText) {
+        feedbackText.textContent = starScore >= 90 
+          ? '🌟 Outstanding answer! You clearly outlined your direct technical ownership, specific architectural choices, and quantifiable production impact.'
+          : '👍 Good response. To make it compelling for senior hiring leads, quantify your final business impact with specific percentages or throughput metrics.';
+      }
+      showToast('✓ AI Answer Evaluation complete!');
+    }
+
+    function stopRecording() {
+      isRecording = false;
+      if (waveform) waveform.style.display = 'none';
+      if (btnMic) {
+        btnMic.textContent = '🎤 Start Speaking Answer';
+        btnMic.style.background = '';
+      }
+    }
+
+    if (btnMic) {
+      btnMic.addEventListener('click', () => {
+        if (!recognition) {
+          showToast('Speech recognition requires Chrome/Edge/Safari microphone support', true);
+          return;
+        }
+        if (!isRecording) {
+          transcript.value = '';
+          recognition.start();
+        } else {
+          recognition.stop();
+        }
+      });
+    }
+  }
+
+  // =========================================================================
+  // MEGA UPGRADE 4: KEYWORD HEATMAP & 1-CLICK KEYWORD INJECTION
+  // =========================================================================
+  function renderKeywordHeatmap(job, profile) {
+    const matchedCloud = document.getElementById('heatmapMatchedCloud');
+    const missingCloud = document.getElementById('heatmapMissingCloud');
+    const matchedCount = document.getElementById('heatmapMatchedCount');
+    const missingCount = document.getElementById('heatmapMissingCount');
+
+    if (!matchedCloud || !missingCloud) return;
+
+    const matched = (job && job.matchedSkills) ? job.matchedSkills : ["Python", "PyTorch", "FastAPI", "React", "Docker", "RAG Systems"];
+    const missing = (job && job.missingSkills) ? job.missingSkills : ["Distributed CUDA Kernels", "Kubeflow Pipelines", "Triton"];
+
+    matchedCloud.innerHTML = matched.map(s => `<span class="heatmap-chip matched">✓ ${s}</span>`).join('');
+    missingCloud.innerHTML = missing.map(s => `<span class="heatmap-chip missing">+ ${s}</span>`).join('');
+
+    if (matchedCount) matchedCount.textContent = `${matched.length} matched`;
+    if (missingCount) missingCount.textContent = `${missing.length} missing`;
+  }
+
+  function initKeywordAutoInject() {
+    const btnInject = document.getElementById('btnAutoInjectKeywords');
+    if (btnInject) {
+      btnInject.addEventListener('click', () => {
+        const missing = (activeJobDetail && activeJobDetail.missingSkills) ? activeJobDetail.missingSkills : ["Distributed CUDA Kernels", "Triton"];
+        if (candidateProfile) {
+          candidateProfile.skills += ', ' + missing.join(', ');
+          const cvSkillsEl = document.getElementById('cvSkills');
+          if (cvSkillsEl) {
+            cvSkillsEl.innerHTML += `<br><strong>Tailored Enhancements:</strong> ${missing.join(', ')}`;
+          }
+        }
+        showToast(`✓ Injected ${missing.length} missing keywords into ATS Resume!`);
+        // Switch to resume tab
+        const navCvBtn = document.querySelector('[data-tab="tabCV"]');
+        if (navCvBtn) navCvBtn.click();
+      });
+    }
+  }
+
+  // =========================================================================
+  // MEGA UPGRADE 5: SALARY NEGOTIATION & OFFER MATRIX
+  // =========================================================================
+  function initOfferMatrix() {
+    const btnOpen = document.getElementById('btnOpenOfferMatrixModal');
+    const modal = document.getElementById('offerMatrixModal');
+    const btnClose = document.getElementById('btnCloseOfferModal');
+    const scriptText = document.getElementById('negotiationScriptText');
+    const btnCopy = document.getElementById('btnCopyNegotiationScript');
+    const strategyBtns = document.querySelectorAll('.btn-neg-strategy');
+
+    function updateTotals() {
+      const aBase = Number(document.getElementById('offerABase').value) || 0;
+      const aEq = Number(document.getElementById('offerAEquity').value) || 0;
+      const aBon = Number(document.getElementById('offerABonus').value) || 0;
+      const aTotal = aBase + aEq + aBon;
+      document.getElementById('offerATotal').textContent = '$' + aTotal.toLocaleString();
+
+      const bBase = Number(document.getElementById('offerBBase').value) || 0;
+      const bEq = Number(document.getElementById('offerBEquity').value) || 0;
+      const bBon = Number(document.getElementById('offerBBonus').value) || 0;
+      const bTotal = bBase + bEq + bBon;
+      document.getElementById('offerBTotal').textContent = '$' + bTotal.toLocaleString();
+    }
+
+    const scripts = {
+      base: `Dear Hiring Team,\n\nThank you sincerely for this offer. I am genuinely excited about the role and confident in my ability to immediately accelerate your engineering targets.\n\nBased on competing conversations and my track record designing distributed architectures with 99.98% uptime, I would be thrilled to sign immediately if we could align the base compensation closer to $215,000. Is there flexibility on the base pay to help bridge this gap?\n\nSincerely,\nAlex Rivera`,
+      signing: `Dear Hiring Team,\n\nI am very excited about the prospect of joining the team! As I evaluate this opportunity alongside another active offer, a one-time signing bonus of $25,000 would offset my unvested equity and allow me to enthusiastically accept right away.\n\nLooking forward to your thoughts,\nAlex Rivera`,
+      remote: `Dear Hiring Team,\n\nThank you for extending this offer. To ensure I can deliver at my highest productive output, could we formalize full remote flexibility alongside a $10,000 annual home-lab & learning stipend? If so, I am ready to sign today.\n\nBest regards,\nAlex Rivera`
+    };
+
+    if (btnOpen && modal) {
+      btnOpen.addEventListener('click', () => {
+        updateTotals();
+        if (scriptText) scriptText.value = scripts.base;
+        modal.style.display = 'flex';
+      });
+    }
+
+    if (btnClose && modal) {
+      btnClose.addEventListener('click', () => {
+        modal.style.display = 'none';
+      });
+    }
+
+    strategyBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        strategyBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const strat = btn.getAttribute('data-strategy');
+        if (scriptText) scriptText.value = scripts[strat] || scripts.base;
+      });
+    });
+
+    ['offerABase', 'offerAEquity', 'offerABonus', 'offerBBase', 'offerBEquity', 'offerBBonus'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.addEventListener('input', updateTotals);
+    });
+
+    if (btnCopy && scriptText) {
+      btnCopy.addEventListener('click', () => {
+        navigator.clipboard.writeText(scriptText.value);
+        showToast('✓ Copied Negotiation Counter-Offer Script!');
+      });
+    }
+  }
+
+  // =========================================================================
+  // MEGA UPGRADE 6: PWA SERVICE WORKER
+  // =========================================================================
+  function initPwa() {
+    if ('serviceWorker' in navigator && window.location.protocol.startsWith('http')) {
+      navigator.serviceWorker.register('sw.js').catch(() => {});
+    }
+  }
+
   // Initial Boot
   initThemeSwitcher();
   initBackendModal();
@@ -2452,6 +2870,13 @@ ${candidateProfile?.achievements || ''}
 
   loadProfile().then(async () => {
     initSmartGeoPricing();
+    initAtsTemplates();
+    initOutreachModal();
+    initVoiceMockInterviewer();
+    initKeywordAutoInject();
+    initOfferMatrix();
+    initPwa();
+    renderKeywordHeatmap(activeJobDetail, candidateProfile);
     renderWebFreemiumUI();
     await verifyProSessionOnBoot();
     executeSearch(true);
